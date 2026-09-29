@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>エンジニアリングマネジメント ポートフォリオ</title>
+<title>Ryota Shindo|Portfolio</title>
 <style>
   :root{
     --navy:#1b2a45;
@@ -273,6 +273,8 @@
     line-height:1.6;
   }
   .ach h4:first-of-type{margin-top:16px;}
+  /* 見出しを持たないカードでも、バッジ直後の本文に余白を確保する */
+  .ach .result + p{margin-top:16px;}
   /* 結果ブロックは目線が止まるよう塗る */
   .outcome{
     margin:8px 0 6px;
@@ -589,7 +591,7 @@
               <td class="desc">論理・物理設計、インデックス設計、クエリ分析、運用、パフォーマンス改善</td>
             </tr>
             <tr>
-              <td class="cat" rowspan="3">クラウド・インフラ</td>
+              <td class="cat" rowspan="4">クラウド・インフラ</td>
               <th scope="row">AWS</th>
               <td class="yrs">7 年</td>
               <td class="desc">EC2、ALB、RDS、S3、Route 53、IAM、ACM を利用した Web サービス基盤の構築・運用</td>
@@ -605,6 +607,11 @@
               <td class="desc">サーバー設定・環境構築の自動化</td>
             </tr>
             <tr>
+              <th scope="row">Docker</th>
+              <td class="yrs">5 年</td>
+              <td class="desc">開発環境の構築・標準化、Grafana・Kibana など監視／ログ基盤のコンテナ運用</td>
+            </tr>
+            <tr>
               <td class="cat" rowspan="2">監視・ログ</td>
               <th scope="row">Grafana, Prometheus,<br>Node Exporter</th>
               <td class="yrs">7 年</td>
@@ -614,6 +621,12 @@
               <th scope="row">Fluentd, Elasticsearch,<br>Kibana</th>
               <td class="yrs">3 年</td>
               <td class="desc">ログの収集・集約・検索環境の構築および運用</td>
+            </tr>
+            <tr>
+              <td class="cat">AI 活用開発</td>
+              <th scope="row">Claude Code, Cursor,<br>GitHub Copilot</th>
+              <td class="yrs">2 年</td>
+              <td class="desc">AI との対話による設計・実装・調査、チームへの導入推進</td>
             </tr>
             <tr>
               <td class="cat" rowspan="2">その他</td>
@@ -738,6 +751,17 @@
           <p>「担当者がもっと注意する」という個人依存の改善ではなく、<strong>品質をチーム・プロセス・自動化によって担保する開発体制</strong>へ変えていきました。</p>
         </div>
       </div>
+
+      <div class="ach">
+        <h3>生成 AI を活用した開発への取り組み</h3>
+        <span class="result">Copilot / Cursor / Claude Code をチームへ導入</span>
+
+        <p>生成 AI の登場以降、GitHub Copilot、Cursor、Claude Code などを段階的にチームへ導入してきました。現在では、<strong>実装の多くを生成 AI との対話を通じて進めており、ハンドコーディングをする機会はほとんどありません</strong>。開発だけでなく、本番環境のログ調査や障害対応の支援にも生成 AIを活用しています。</p>
+
+        <p>また、生成 AI を最大限に活用するため、Claude Code の Skills をはじめとした AI コーディング環境の整備にも継続的に取り組んでいます。</p>
+
+        <p>私自身も日々 AI を活用して開発を行い、<strong>AI に任せられる領域と、人が判断・設計すべき領域の見極め</strong>を続けています。</p>
+      </div>
     </section>
 
     <!-- ============ Management ============ -->
@@ -788,6 +812,7 @@
         <span>技術的な意思決定</span>
         <span>チーム間・組織間の連携</span>
         <span>プロダクト価値を意識した開発</span>
+        <span>生成 AI を活用した開発生産性の向上</span>
       </div>
 
       <p>に取り組んでいきたいと考えています。</p>
