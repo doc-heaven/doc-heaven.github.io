@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>エンジニアリングマネジメント ポートフォリオ</title>
+<style>
+  :root{
+    --navy:#1b2a45;
+    --navy-mid:#2d4468;
+    --navy-soft:#e8ecf3;
+    --ink:#1f2328;
+    --ink-sub:#4a5260;
+    --ink-mute:#6b7280;
+    --line:#dfe3ea;
+    --line-soft:#eceff4;
+    --bg:#ffffff;
+    --bg-alt:#f7f8fa;
+    --accent:#3d5a80;
+    --max:880px;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
+    font-size:16px;
+    line-height:1.9;
+    font-feature-settings:"palt" 1;
+  }
+
+  /* ---------- header ---------- */
+  .masthead{
+    background:var(--navy);
+    color:#fff;
+    padding:52px 0 46px;
+  }
+  /* .shell と同じ箱にして左端を揃える */
+  .masthead-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  /* 目次カラム幅 + gap 分だけ内側へ寄せ、本文カラムと左端を一致させる */
+  @media (min-width:1000px){
+    .masthead-inner{padding-left:calc(28px + 224px + 48px);}
+    .masthead-inner > *{max-width:var(--max);}
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.14em;
+    color:#9db0cc;
+    margin:0 0 14px;
+    font-weight:600;
+  }
+  .masthead h1{
+    margin:0;
+    font-size:30px;
+    line-height:1.4;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+  /* 氏名を白く強調し、肩書きは一段落とす */
+  .masthead h1 .name{color:#fff;}
+  .masthead h1 .role{color:#9db0cc;font-weight:600;}
+  .masthead .lede{
+    margin:18px 0 0;
+    font-size:15px;
+    line-height:1.85;
+    color:#c8d3e4;
+    max-width:44em;
+  }
+  .h1br{display:none;}
+  @media (max-width:560px){ .h1br{display:inline;} }
+  .masthead .rule{
+    width:46px;height:3px;background:#7f9cc4;
+    margin:22px 0 0;border-radius:2px;
+  }
+
+  /* ---------- layout ---------- */
+  .shell{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:flex-start;
+    gap:48px;
+    padding:0 28px;
+  }
+  .toc{
+    display:none;
+    position:sticky;
+    top:0;
+    width:224px;
+    flex:0 0 224px;
+    padding:44px 0 44px;
+    max-height:100vh;
+    overflow-y:auto;
+  }
+  .toc-title{
+    font-size:11px;letter-spacing:.1em;
+    color:var(--ink-mute);font-weight:700;margin:0 0 14px;
+  }
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc li{margin:0;}
+  .toc a{
+    display:block;
+    padding:7px 0 7px 14px;
+    border-left:2px solid var(--line);
+    color:var(--ink-sub);
+    text-decoration:none;
+    font-size:13px;
+    line-height:1.55;
+    transition:color .18s ease,border-left-color .18s ease,background-color .18s ease;
+  }
+  .toc a:hover{color:var(--navy);border-left-color:var(--accent);background:var(--bg-alt);}
+  /* 現在読んでいるセクション */
+  .toc a[aria-current="true"]{
+    color:var(--navy);
+    font-weight:700;
+    border-left-color:var(--navy);
+    background:var(--bg-alt);
+  }
+  @media (prefers-reduced-motion:reduce){ .toc a{transition:none;} }
+  main{
+    flex:1 1 auto;
+    min-width:0;
+    max-width:var(--max);
+    padding:44px 0 88px;
+  }
+  @media (min-width:1000px){ .toc{display:block;} }
+
+  /* ---------- mobile toc ---------- */
+  .toc-mobile{
+    margin:0;
+    border-bottom:1px solid var(--line);
+    background:var(--bg-alt);
+  }
+  .toc-mobile summary{
+    cursor:pointer;
+    padding:14px 28px;
+    font-size:13px;
+    font-weight:700;
+    color:var(--navy);
+    letter-spacing:.04em;
+  }
+  .toc-mobile ol{
+    list-style:none;margin:0;padding:0 28px 18px;
+    columns:2;column-gap:20px;
+  }
+  .toc-mobile a{
+    display:block;padding:5px 0;font-size:13px;
+    color:var(--ink-sub);text-decoration:none;
+  }
+  @media (min-width:1000px){ .toc-mobile{display:none;} }
+
+  /* ---------- sections ---------- */
+  section{padding:0 0 8px;}
+  section + section{margin-top:54px;}
+  h2{
+    margin:0 0 6px;
+    font-size:21px;
+    line-height:1.5;
+    font-weight:700;
+    color:var(--navy);
+    letter-spacing:.01em;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--navy-soft);
+    scroll-margin-top:16px;
+  }
+  h3{
+    margin:36px 0 10px;
+    font-size:17px;
+    line-height:1.6;
+    font-weight:700;
+    color:var(--ink);
+  }
+  h4{
+    margin:26px 0 8px;
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink-sub);
+    letter-spacing:.02em;
+  }
+  p{margin:0 0 14px;color:var(--ink-sub);}
+  p strong,li strong{color:var(--ink);font-weight:700;}
+  ul{margin:0 0 16px;padding-left:0;list-style:none;}
+  ul li{
+    position:relative;
+    padding-left:17px;
+    margin-bottom:5px;
+    color:var(--ink-sub);
+  }
+  ul li::before{
+    content:"";
+    position:absolute;left:2px;top:.72em;
+    width:5px;height:5px;border-radius:50%;
+    background:#9aa7ba;
+  }
+
+  /* ---------- quote / callout ---------- */
+  blockquote{
+    margin:20px 0;
+    padding:16px 22px;
+    background:var(--bg-alt);
+    border-left:3px solid var(--accent);
+    border-radius:0 4px 4px 0;
+  }
+  blockquote p{margin:0;color:var(--ink);font-weight:600;line-height:1.85;}
+  blockquote p + p{margin-top:8px;}
+
+  /* ---------- stat cards ---------- */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    margin:26px 0 30px;
+  }
+  .stat{background:#fff;padding:18px 18px 16px;}
+  .stat .figure{
+    font-size:25px;
+    font-weight:700;
+    color:var(--navy);
+    line-height:1.2;
+    letter-spacing:-.01em;
+  }
+  .stat .figure .unit{font-size:14px;font-weight:600;margin-left:2px;}
+  .stat .label{
+    margin-top:6px;
+    font-size:12px;
+    line-height:1.6;
+    color:var(--ink-mute);
+  }
+
+  /* ---------- case study card ---------- */
+  .ach{
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 26px 12px;
+    margin:0 0 18px;
+    background:#fff;
+  }
+  .ach > h3{
+    margin:0 0 4px;
+    font-size:17px;
+  }
+  .ach .result{
+    display:inline-block;
+    margin:2px 0 14px;
+    padding:7px 14px;
+    background:var(--navy);
+    color:#fff;
+    border-radius:4px;
+    font-size:13.5px;
+    font-weight:700;
+    letter-spacing:.02em;
+    line-height:1.5;
+  }
+  /* 背景 / 取り組み / 結果 のラベル */
+  .ach h4{
+    margin:22px 0 10px;
+    padding-left:10px;
+    border-left:3px solid var(--navy-soft);
+    font-size:15px;
+    letter-spacing:.02em;
+    color:var(--accent);
+    line-height:1.6;
+  }
+  .ach h4:first-of-type{margin-top:16px;}
+  /* 結果ブロックは目線が止まるよう塗る */
+  .outcome{
+    margin:8px 0 6px;
+    padding:14px 18px 12px;
+    background:var(--bg-alt);
+    border:1px solid var(--line);
+    border-radius:5px;
+  }
+  .outcome ul{margin-bottom:0;}
+  .outcome ul li{color:var(--ink);}
+  .outcome p{margin-bottom:0;color:var(--ink);}
+  .outcome p + p{margin-top:8px;}
+
+  /* ---------- tag lists ---------- */
+  .tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tags span{
+    display:inline-block;
+    padding:3px 9px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--bg-alt);
+    font-size:12.5px;
+    color:var(--ink-sub);
+    line-height:1.7;
+  }
+
+  /* ---------- flow ---------- */
+  .flow{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+    margin:14px 0 18px;
+  }
+  .flow span{
+    padding:6px 13px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:#fff;
+    font-size:13px;
+    font-weight:600;
+    color:var(--navy);
+  }
+  .flow i{color:#9aa7ba;font-style:normal;font-size:13px;}
+
+  /* ---------- key/value rows ---------- */
+  .scope{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+    gap:8px;
+    margin:16px 0 20px;
+  }
+  .scope span{
+    padding:9px 12px;
+    background:var(--bg-alt);
+    border-left:2px solid var(--accent);
+    font-size:13.5px;
+    color:var(--ink-sub);
+    line-height:1.55;
+  }
+
+  /* ---------- approach block ---------- */
+  .appr{
+    border-top:1px solid var(--line);
+    padding-top:4px;
+    margin-top:30px;
+  }
+  .appr:first-of-type{border-top:0;margin-top:0;}
+  .appr > h3{
+    margin:18px 0 10px;
+  }
+  .appr:first-of-type > h3{margin-top:24px;}
+
+  /* ---------- profile ---------- */
+  .profile{
+    display:flex;
+    align-items:flex-start;
+    gap:26px;
+  }
+  .profile-body{flex:1 1 auto;min-width:0;}
+  .profile p{margin:0 0 14px;}
+  .profile p:last-child{margin-bottom:0;}
+  .avatar{
+    flex:0 0 auto;
+    width:108px;height:108px;
+    border-radius:50%;
+    overflow:hidden;
+    background:var(--navy-soft);
+    border:1px solid var(--line);
+  }
+  .avatar img{
+    display:block;
+    width:100%;height:100%;
+    /* 切らずに全体を円の中へ収める */
+    object-fit:contain;
+    object-position:50% 100%;
+    transform:scale(1.08) translateY(7px);
+    transform-origin:50% 100%;
+  }
+  @media (max-width:640px){
+    .profile{gap:18px;}
+    .avatar{width:84px;height:84px;}
+  }
+
+  /* ---------- skills table ---------- */
+  .skills-wrap{
+    margin:18px 0 22px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow-x:auto;
+  }
+  table.skills{
+    width:100%;
+    min-width:640px;
+    border-collapse:collapse;
+    font-size:13.5px;
+    line-height:1.7;
+  }
+  table.skills th,table.skills td{
+    text-align:left;
+    vertical-align:top;
+    padding:10px 14px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  table.skills thead th{
+    background:var(--bg-alt);
+    color:var(--accent);
+    font-size:11.5px;
+    letter-spacing:.08em;
+    font-weight:700;
+    border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  table.skills tbody tr:last-child th,
+  table.skills tbody tr:last-child td{border-bottom:0;}
+  table.skills td.cat{
+    color:var(--navy);
+    font-weight:700;
+    white-space:nowrap;
+    background:var(--bg-alt);
+    border-right:1px solid var(--line-soft);
+  }
+  table.skills th[scope="row"]{
+    color:var(--ink);
+    font-weight:700;
+    white-space:nowrap;
+  }
+  table.skills td.yrs{color:var(--ink-sub);white-space:nowrap;}
+  table.skills td.desc{color:var(--ink-sub);}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:26px 28px 40px;
+    text-align:center;
+    color:var(--ink-mute);
+    font-size:12px;
+    letter-spacing:.06em;
+  }
+
+  @media (max-width:640px){
+    .masthead{padding:40px 0 36px;}
+    .masthead-inner{padding:0 22px;}
+    .masthead h1{font-size:24px;}
+    .shell{padding:0 22px;}
+    main{padding:32px 0 64px;}
+    h2{font-size:19px;}
+    .ach{padding:20px 18px 10px;}
+    .outcome{padding:13px 15px 11px;}
+    .toc-mobile summary,.toc-mobile ol{padding-left:22px;padding-right:22px;}
+    .toc-mobile ol{columns:1;}
+  }
+
+  @media print{
+    .toc,.toc-mobile{display:none;}
+    body{font-size:10.5pt;line-height:1.7;}
+    .masthead{background:#fff;color:var(--navy);border-bottom:2px solid var(--navy);padding:0 0 18px;}
+    .masthead-inner{max-width:none;padding:0;}
+    .ach .result{background:#fff;color:var(--navy);border:1px solid var(--navy);padding:3px 9px;}
+    .masthead h1 .name{color:var(--navy);}
+    .masthead h1 .role{color:var(--ink-sub);}
+    .masthead .lede{color:var(--ink-sub);}
+    .shell{padding:0;display:block;}
+    main{max-width:none;padding:18px 0 0;}
+    section{break-inside:avoid;}
+    .ach,.stats,.outcome,.appr,.skills-wrap{break-inside:avoid;}
+    .skills-wrap{overflow-x:visible;}
+    table.skills{min-width:0;font-size:9.5pt;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Portfolio</p>
+    <h1><span class="name">Ryota Shindo</span><br class="h1br"> <span class="role">/ Engineering Manager</span></h1>
+<!--     <div class="rule"></div>
+    <p class="lede">約 20 年にわたり Web サービスの開発に携わり、現在は日本・ベトナム合わせて約 23 名の開発組織をマネジメントしています。<br>
+    これまでの仕事の中でどのような課題に向き合い、どのように改善してきたかを紹介します。</p> -->
+  </div>
+</header>
+
+<details class="toc-mobile">
+  <summary>目次を表示</summary>
+  <ol>
+    <li><a href="#about">About me</a></li>
+    <li><a href="#career">職務経歴概要</a></li>
+    <li><a href="#cases">ケーススタディ</a></li>
+    <li><a href="#management">マネジメント</a></li>
+    <li><a href="#product">プロダクトへの考え方</a></li>
+    <li><a href="#contribute">今後貢献したいこと</a></li>
+  </ol>
+</details>
+
+<div class="shell">
+
+  <nav class="toc" aria-label="目次">
+    <p class="toc-title">目次</p>
+    <ol>
+      <li><a href="#about">About me</a></li>
+      <li><a href="#career">職務経歴概要</a></li>
+      <li><a href="#cases">ケーススタディ</a></li>
+      <li><a href="#management">マネジメント</a></li>
+      <li><a href="#product">プロダクトへの考え方</a></li>
+      <li><a href="#contribute">今後貢献したいこと</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ============ About me ============ -->
+    <section id="about">
+      <h2>About me</h2>
+
+      <div class="profile">
+        <div class="avatar">
+          <!-- イラスト切替: assets/avatar-v3.png ⇔ assets/avatar-v11.png -->
+          <img src="assets/avatar-v3.png" alt="新藤 良太" width="108" height="108" decoding="async">
+        </div>
+        <div class="profile-body">
+        <p>音響の専門学校を卒業後、派遣社員として働きながらレコーディングエンジニアを経験。その後、フィーチャーフォン向け音楽配信サービスのサイト制作に携わり、IT 業界へ転身しました。</p>
+        <p>PC サイトのデザイナー、コーダーを経て、IT 技術やプログラミングへの関心を深め、学校でプログラミングを学んだ後、Web エンジニアとしてのキャリアをスタート。</p>
+        <p>約 20 年にわたり Web サービスの開発に携わり、現在は開発部門の責任者として、日本・ベトナム合わせて約 23 名の開発組織をマネジメントしています。</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="figure">約 20<span class="unit">年</span></div>
+          <div class="label">Web サービス開発の経験</div>
+        </div>
+        <div class="stat">
+          <div class="figure">約 23<span class="unit">名</span></div>
+          <div class="label">マネジメントする開発組織<br>（日本・ベトナム合計）</div>
+        </div>
+        <div class="stat">
+          <div class="figure">3 → 約 15<span class="unit">名</span></div>
+          <div class="label">ベトナム開発拠点を<br>立ち上げから組織拡大</div>
+        </div>
+        <div class="stat">
+          <div class="figure">半分以下</div>
+          <div class="label">本番環境で発生するバグを削減<br>（自動テスト導入による）</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Career Summary ============ -->
+    <section id="career">
+      <h2>職務経歴概要</h2>
+
+      <h3>ソフトウェアエンジニア</h3>
+      <p>PHP / Laravel を中心とした Web アプリケーション開発に従事。</p>
+      <p>アプリケーション開発だけでなく、DB 設計、API 設計、AWS、サーバー・インフラ、ログ調査、パフォーマンス改善、障害対応、CI/CD、自動テストなど、<strong>サービスを構成する技術領域を幅広く経験</strong>してきました。</p>
+
+      <h4>テクニカルスキル</h4>
+      <div class="skills-wrap">
+        <table class="skills">
+          <thead>
+            <tr>
+              <th scope="col">カテゴリ</th>
+              <th scope="col">技術・ツール</th>
+              <th scope="col">経験年数</th>
+              <th scope="col">経験内容・具体的な業務</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="cat" rowspan="5">Web アプリケーション開発</td>
+              <th scope="row">PHP</th>
+              <td class="yrs">10 年以上</td>
+              <td class="desc">Web アプリケーションの設計、実装、コードレビュー、運用・保守</td>
+            </tr>
+            <tr>
+              <th scope="row">Laravel</th>
+              <td class="yrs">7 年</td>
+              <td class="desc">Web サービスの設計・開発、開発方針・実装ルールの策定</td>
+            </tr>
+            <tr>
+              <th scope="row">JavaScript</th>
+              <td class="yrs">10 年以上</td>
+              <td class="desc">Web フロントエンドの実装・改修</td>
+            </tr>
+            <tr>
+              <th scope="row">TypeScript</th>
+              <td class="yrs">3 年</td>
+              <td class="desc">Web フロントエンド開発</td>
+            </tr>
+            <tr>
+              <th scope="row">Vue.js</th>
+              <td class="yrs">4 年</td>
+              <td class="desc">Web アプリケーションの画面設計・実装</td>
+            </tr>
+            <tr>
+              <td class="cat">データベース</td>
+              <th scope="row">MySQL</th>
+              <td class="yrs">10 年以上</td>
+              <td class="desc">論理・物理設計、インデックス設計、クエリ分析、運用、パフォーマンス改善</td>
+            </tr>
+            <tr>
+              <td class="cat" rowspan="3">クラウド・インフラ</td>
+              <th scope="row">AWS</th>
+              <td class="yrs">7 年</td>
+              <td class="desc">EC2、ALB、RDS、S3、Route 53、IAM、ACM を利用した Web サービス基盤の構築・運用</td>
+            </tr>
+            <tr>
+              <th scope="row">Amazon Linux / CentOS</th>
+              <td class="yrs">—</td>
+              <td class="desc">Web・アプリケーションサーバーの構築、設定、運用、障害対応</td>
+            </tr>
+            <tr>
+              <th scope="row">Ansible</th>
+              <td class="yrs">5 年</td>
+              <td class="desc">サーバー設定・環境構築の自動化</td>
+            </tr>
+            <tr>
+              <td class="cat" rowspan="2">監視・ログ</td>
+              <th scope="row">Grafana, Prometheus,<br>Node Exporter</th>
+              <td class="yrs">7 年</td>
+              <td class="desc">サーバーおよびアプリケーションのメトリクス監視、障害・性能調査</td>
+            </tr>
+            <tr>
+              <th scope="row">Fluentd, Elasticsearch,<br>Kibana</th>
+              <td class="yrs">3 年</td>
+              <td class="desc">ログの収集・集約・検索環境の構築および運用</td>
+            </tr>
+            <tr>
+              <td class="cat" rowspan="2">その他</td>
+              <th scope="row">Swift</th>
+              <td class="yrs">1 年 6 カ月</td>
+              <td class="desc">基礎的な開発経験</td>
+            </tr>
+            <tr>
+              <th scope="row">Ruby</th>
+              <td class="yrs">6 カ月</td>
+              <td class="desc">基礎的な開発経験</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>開発マネージャー</h3>
+      <p>2017 年頃から開発部門のマネジメントを担当。現在は約 23 名の開発組織について、以下を管轄しています。</p>
+
+      <div class="scope">
+        <span>採用</span>
+        <span>人事評価・昇給</span>
+        <span>人員配置・チーム編成</span>
+        <span>エンジニア育成</span>
+        <span>技術選定・開発方針</span>
+        <span>開発予算</span>
+        <span>プロダクト優先順位</span>
+        <span>スケジュール</span>
+        <span>外注・ベトナムへの開発発注</span>
+        <span>経営層への報告・提案</span>
+      </div>
+    </section>
+
+    <!-- ============ Case Studies ============ -->
+    <section id="cases">
+      <h2>ケーススタディ</h2>
+
+      <div class="ach">
+        <h3>ベトナム開発拠点を 3 名から約 15 名へ拡大</h3>
+        <!-- <span class="result">ラボ型 3 名 → 現地法人化・約 15 名</span> -->
+
+        <h4>背景</h4>
+        <p>国内でのエンジニア採用が難しくなる中、ベトナムでの開発体制構築を開始しました。ラボ型で 3 名の開発体制から始め、その後現地法人を設立し約 15 名まで拡大し、<strong>エンジニア人件費を日本採用時と比較して約 65％削減</strong>しました。</p>
+
+        <h4>取り組み</h4>
+        <p>採用人数を増やすだけではなく、継続的に開発できる組織として成立させるため、以下を担当しました。</p>
+        <ul>
+          <li>現地訪問</li>
+          <li>採用方針の策定</li>
+          <li>エンジニア採用</li>
+          <li>コミュニケーター採用</li>
+          <li>コミュニケーター候補者約 20 名の面接</li>
+          <li>評価制度・給与テーブルの設計</li>
+          <li>現地マネージャーの育成</li>
+          <li>チーム編成・組織設計</li>
+          <li>日本・ベトナム間の開発プロセス設計</li>
+          <li>コミュニケーションルールの整備</li>
+          <li>日本側との調整・マネジメント</li>
+        </ul>
+
+        <h4>結果</h4>
+        <div class="outcome">
+          <p>単なる海外採用ではなく、<strong>採用・制度・組織・開発プロセスまで含めた海外開発拠点の立ち上げ・拡大</strong>を経験しています。</p>
+        </div>
+      </div>
+
+      <div class="ach">
+        <h3>スクラム開発導入とプロセスの改善</h3>
+        <span class="result">チーム自身が改善を回す土台をつくる</span>
+
+        <h4>背景</h4>
+        <p>2021 年頃、開発チームにスクラムを導入しました。導入当初は、スクラムを部分的に導入したこともあり、さまざまな問題が発生しました。</p>
+        <ul>
+          <li>Sprint 開始後に新しい依頼が入る</li>
+          <li>一度合意した仕様が変更される</li>
+          <li>開発チーム以外のステークホルダーにスクラムの考え方が十分に共有されていない</li>
+          <li>Planning / Refinement で詳細な設計議論に入り込み、時間が長くなる</li>
+        </ul>
+
+        <h4>取り組み</h4>
+        <p>開発チームだけの問題として扱うのではなく、<strong>関係するステークホルダーを含めて開発プロセスそのものを改善する</strong>ことに取り組みました。具体的には、</p>
+        <ul>
+          <li>新しいステークホルダー向けのスクラム説明資料の作成</li>
+          <li>スクラムの考え方・開発プロセスの啓蒙</li>
+          <li>Planning / Refinement での議論方法の改善</li>
+          <li>Sprint 開始後の短時間のコミュニケーションによる問題解決</li>
+          <li>Pair Programming / Mob Programming の活用</li>
+          <li>必要な情報をドキュメントとして残す</li>
+          <li>Acceptance Criteria の標準化</li>
+          <li>「何をもって完了とするか」の判断基準の明確化</li>
+        </ul>
+        <p>などを行いました。</p>
+
+        <h4>結果</h4>
+        <div class="outcome">
+          <p>スクラム導入によって最も大きかった変化は、単に開発イベントを導入したことではなく、<strong>チームが自分たちで問題を発見し、改善していくための土台を作れたこと</strong>です。</p>
+        </div>
+      </div>
+
+      <div class="ach">
+        <h3>自動テスト導入</h3>
+        <span class="result">本番環境で発生するバグを半分以下に削減</span>
+
+        <h4>背景</h4>
+        <p>以前はテストケースの運用やテストコードの文化が十分になく、品質が担当エンジニアに依存していました。</p>
+
+        <h4>取り組み</h4>
+        <ul>
+          <li>Unit Test</li>
+          <li>Integration Test</li>
+          <li>E2E Test</li>
+          <li>テストケースの作成・運用</li>
+          <li>テストケースのレビュー制度</li>
+          <li>Code Review</li>
+          <li>CI/CD による Lint・品質チェック</li>
+        </ul>
+        <p>などを導入しました。</p>
+
+        <h4>結果</h4>
+        <div class="outcome">
+          <p>結果として、<strong>本番環境で発生するバグを半分以下に削減</strong>しました。</p>
+          <p>「担当者がもっと注意する」という個人依存の改善ではなく、<strong>品質をチーム・プロセス・自動化によって担保する開発体制</strong>へ変えていきました。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Management ============ -->
+    <section id="management">
+      <h2>マネジメント</h2>
+
+      <div class="appr">
+        <h3>自律的に問題解決できるチームを作る</h3>
+        <p>自分のマネジメントにおいて最も重視している考え方です。</p>
+        <p>組織が大きくなるほど、マネージャー一人ですべての問題を把握し、改善案を考え、指示することには限界があります。そのため、</p>
+        <blockquote><p>メンバーが自分たちで問題を発見し、考え、判断し、改善できる状態を作る</p></blockquote>
+        <p>ことを重視しています。</p>
+        <p>主にレトロスペクティブを起点に問題の把握から改善案の提案、アクションプランの決定、実施までをメンバー自身が行い、マネージャーの役割は、すべての答えを持つことではなく、<strong>チームが自ら答えを出せる環境を作ること</strong>だと考えています。</p>
+      </div>
+
+      <div class="appr">
+        <h3>人を尊重することから始まる</h3>
+        <p>私は、社員一人ひとりが会社やプロダクト、そして一緒に働く仲間に対して「好き」「ここで働きたい」と思えることが、組織づくりにおいて大切だと考えています。</p>
+        <p>そうした気持ちや安心感があってこそ、一人ひとりの潜在能力や主体性が引き出されると思うからです。</p>
+        <p>そのため、表面的なコミュニケーションのテクニックだけではなく、<strong>相手を尊重し、相手の立場や考えを理解しようとする姿勢</strong>を大切にして、日々メンバーと接しています。</p>
+      </div>
+    </section>
+
+    <!-- ============ Product Approach ============ -->
+    <section id="product">
+      <h2>プロダクトへの考え方</h2>
+
+      <h3>「作ること」ではなく「価値を届けること」</h3>
+      <p>過去に、開発した機能やサービスがリリース後にほとんど利用されなかった経験があります。この経験から、開発前に以下を確認することを意識するようになりました。</p>
+      <ul>
+        <li>本当にユーザーが必要としているのか</li>
+        <li>どのような課題を解決するのか</li>
+        <li>ユーザーにどのような価値を提供するのか</li>
+      </ul>
+      <p>技術的に実現可能であることだけをゴールにせず、<strong>ユーザーに価値が届くところまでを開発の目的として考える</strong>ことを重視しています。</p>
+    </section>
+
+    <!-- ============ What I Want to Contribute ============ -->
+    <section id="contribute">
+      <h2>今後貢献したいこと</h2>
+
+      <p>これまでの経験を活かし、<strong>技術とマネジメントの両面から開発組織とプロダクトを成長させる役割</strong>に取り組みたいと考えています。特に、</p>
+
+      <div class="scope">
+        <span>エンジニアが成果を出しやすい組織づくり</span>
+        <span>開発プロセス・品質の継続的な改善</span>
+        <span>エンジニアの育成</span>
+        <span>技術的な意思決定</span>
+        <span>チーム間・組織間の連携</span>
+        <span>プロダクト価値を意識した開発</span>
+      </div>
+
+      <p>に取り組んでいきたいと考えています。</p>
+
+      <p>自分が目指しているのは、<strong>技術を理解した上で、エンジニアがより良い仕事をできる環境を作ること</strong>です。そして、</p>
+
+      <blockquote><p>メンバーが会社やプロダクトを自分ごととして考え、ユーザーに高い価値を届けるために、自ら考えて行動できるチーム</p></blockquote>
+
+      <p>を作りたいと考えています。そのようなチームを作り、継続的に改善することで、</p>
+
+      <blockquote><p>「このサービスがあってよかった」とユーザーに思ってもらえるプロダクト</p></blockquote>
+
+      <p>を生み出していきたいと考えています。</p>
+
+      <blockquote><p>技術とマネジメントの両面から、良いプロダクトと良い開発組織を作ること。</p></blockquote>
+
+      <p>それが、これからの自分のキャリアにおける目標です。</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>Ryota Shindo / Engineering Management Portfolio</footer>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(
+    document.querySelectorAll('.toc a[href^="#"]')
+  );
+  if(!links.length || !('IntersectionObserver' in window)) return;
+
+  var map = {}, sections = [];
+  links.forEach(function(a){
+    var el = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+    if(el){ map[el.id] = a; sections.push(el); }
+  });
+  if(!sections.length) return;
+
+  var visible = {}, current = null;
+
+  function mark(){
+    var best = null, bestTop = Infinity;
+    // 画面内にあるセクションのうち、最も上にあるものを現在位置とする
+    sections.forEach(function(el){
+      if(!visible[el.id]) return;
+      var top = el.getBoundingClientRect().top;
+      if(top < bestTop){ bestTop = top; best = el; }
+    });
+    // 画面内に見出しが無い場合（長いセクションの途中など）は
+    // ビューポート上端をまたいでいる最後のセクションを採用する
+    if(!best){
+      for(var i=0;i<sections.length;i++){
+        if(sections[i].getBoundingClientRect().top <= 80) best = sections[i];
+      }
+    }
+    if(!best || best === current) return;
+    current = best;
+    links.forEach(function(a){ a.removeAttribute('aria-current'); });
+    if(map[best.id]) map[best.id].setAttribute('aria-current','true');
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+    mark();
+  }, { rootMargin:'-70px 0px -55% 0px', threshold:0 });
+
+  sections.forEach(function(el){ io.observe(el); });
+  addEventListener('scroll', mark, {passive:true});
+  addEventListener('resize', mark, {passive:true});
+  mark();
+})();
+</script>
+</body>
+</html>
